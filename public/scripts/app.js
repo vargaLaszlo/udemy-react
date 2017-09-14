@@ -1,65 +1,54 @@
 'use strict';
 
-// Arguments object - no longer bound with arrow functions
+var title = React.createElement(
+    'h1',
+    null,
+    'Indecision App'
+);
+var appRoot = document.getElementById('app');
 
-// es5 function
-var add = function add(a, b) {
-    console.log(arguments);
-    return a + b;
+var count = 0;
+var addOne = function addOne() {
+    count++;
+    renderCounterApp();
+};
+var minusOne = function minusOne() {
+    count--;
+    renderCounterApp();
+};
+var reset = function reset() {
+    count = 0;
+    renderCounterApp();
 };
 
-console.log(add(55, 1, 1001));
+var renderCounterApp = function renderCounterApp() {
+    var templateTwo = React.createElement(
+        'div',
+        null,
+        React.createElement(
+            'h1',
+            null,
+            'Count: ',
+            count
+        ),
+        React.createElement(
+            'button',
+            { onClick: addOne },
+            '+1'
+        ),
+        React.createElement(
+            'button',
+            { onClick: minusOne },
+            '-1'
+        ),
+        React.createElement(
+            'button',
+            { onClick: reset },
+            'ReSet'
+        )
+    );
 
-// es6 arrow function
-var addArrow = function addArrow(a, b) {
-    //console.log(arguments); //throws an error, not accessible
-    return a + b;
+    ReactDOM.render(templateTwo, appRoot);
 };
 
-console.log(addArrow(55, 2, 1001));
-
-// This keyword - no longer bound
-
-var user = {
-    name: 'Bob',
-    cities: ['Gödöllő', 'Budapest', 'Lacháza'],
-
-    /*printPlacesLived: function() {
-        console.log(this.name);
-        console.log(this.cities);
-         this.cities.forEach( function(city) {
-            console.log(this.name + ' has lived in ' + city);
-            // this here cant acces object
-        }); 
-    }*/
-
-    printPlacesLived: function printPlacesLived() {
-        var _this = this;
-
-        /*this.cities.forEach((city) => {
-            console.log(this.name + ' has lived in ' + city);
-        }); */
-
-        return this.cities.map(function (city) {
-            return _this.name + ' has lived in ' + city;
-        });
-    }
-};
-
-console.log(user.printPlacesLived());
-
-// Challenge area
-
-var multipier = {
-    number: [10, 20, 30, 40, 50],
-    multiplyBy: 12,
-    multiply: function multiply() {
-        var _this2 = this;
-
-        return this.number.map(function (nmb) {
-            return _this2.multiplyBy * nmb;
-        });
-    }
-};
-
-console.log(multipier.multiply());
+renderCounterApp();

@@ -1,57 +1,35 @@
-// JSX - JavaScript XML
 
 const title = <h1>Indecision App</h1>;
 const appRoot = document.getElementById('app');
 
-
-const app = {
-    title: "Indecision App",
-    subtitle: "An app to make indecisions",
-    options: ["one", "Two"]
+let count = 0;
+const addOne = () => {
+    count++;
+    renderCounterApp();
+};
+const minusOne = () =>  {
+    count --;
+    renderCounterApp();
+};
+const reset = () =>  {
+    count = 0;
+    renderCounterApp();
 };
 
-const template = (
-    <div>
-        <h1>{app.title}</h1>
-        <p>{app.subtitle}</p>
-        <ol>
-            <li>a</li>
-            <li>b</li>
-        </ol>
-    </div>
-);
+const renderCounterApp = () => {
+    const templateTwo = (
+        <div>
+            <h1>Count: {count}</h1>
+            <button onClick={addOne}>+1</button>
+            <button onClick={minusOne}>-1</button>
+            <button onClick={reset}>ReSet</button>
+        </div>
+    )
 
-//-----------------------------------------------
+    ReactDOM.render(
+        templateTwo, 
+        appRoot
+    );
+};
 
-const user = {
-    name: "László",
-    age: 41,
-    location: "Budapest"
-}
-
-function getName(name) {
-    return name ? name : "Anonimus";
-}
-
-function getAge(age) {
-    return age >= 18 && (<p>Age: {age}</p>);
-}
-
-function getLocation(location) {
-    if (location) {
-        return <p>Location: {location}</p>;
-    }
-}
-
-var templateTwo = (
-    <div>
-        <h1>{getName(user.name)}</h1>
-        {getAge(user.age)}
-        {getLocation(user.location)}
-    </div>
-);
-
-ReactDOM.render(
-    templateTwo, 
-    appRoot
-);
+renderCounterApp();
