@@ -1,54 +1,40 @@
 'use strict';
 
-var title = React.createElement(
-    'h1',
-    null,
-    'Indecision App'
-);
+var app = {
+    title: "Visibility Toggle"
+};
+
+var visibility = false;
+
+var toggleVisibility = function toggleVisibility() {
+    visibility = !visibility;
+    render();
+};
+
 var appRoot = document.getElementById('app');
 
-var count = 0;
-var addOne = function addOne() {
-    count++;
-    renderCounterApp();
-};
-var minusOne = function minusOne() {
-    count--;
-    renderCounterApp();
-};
-var reset = function reset() {
-    count = 0;
-    renderCounterApp();
-};
-
-var renderCounterApp = function renderCounterApp() {
-    var templateTwo = React.createElement(
+var render = function render() {
+    var template = React.createElement(
         'div',
         null,
         React.createElement(
             'h1',
             null,
-            'Count: ',
-            count
+            app.title
         ),
         React.createElement(
             'button',
-            { onClick: addOne },
-            '+1'
+            { onClick: toggleVisibility },
+            visibility ? 'Hide details' : 'Show details'
         ),
         React.createElement(
-            'button',
-            { onClick: minusOne },
-            '-1'
-        ),
-        React.createElement(
-            'button',
-            { onClick: reset },
-            'ReSet'
+            'p',
+            { hidden: !visibility },
+            'Lorem ipsum dolor sit amet!'
         )
     );
 
-    ReactDOM.render(templateTwo, appRoot);
+    ReactDOM.render(template, appRoot);
 };
 
-renderCounterApp();
+render();
